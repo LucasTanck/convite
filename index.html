@@ -25,9 +25,10 @@
 
         .image-and-buttons-container {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            margin: 30px auto;
+            margin: 30px;
+            flex-wrap: wrap;
         }
 
         #second-image {
@@ -40,14 +41,14 @@
         .attractions-food-location-buttons {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
-            margin-top: 20px;
+            width: 200px;
+            text-align: center;
+            margin-left: 20px;
         }
 
         .attractions-food-location-buttons a {
-            display: block;
-            width: 200px;
+            display: inline-block;
             padding: 15px;
             background: #ff7e5f;
             color: white;
@@ -63,11 +64,10 @@
 
         .countdown-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            margin: 30px auto;
-            max-width: 600px;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px;
+            flex-wrap: wrap;
         }
 
         #countdown, #rsvp {
@@ -76,7 +76,7 @@
             border-radius: 15px;
             backdrop-filter: blur(10px);
             width: 100%;
-            text-align: center;
+            max-width: 400px;
         }
 
         #timer {
@@ -111,7 +111,34 @@
             padding: 20px;
             background: rgba(0, 0, 0, 0.7);
             margin-top: 40px;
-            text-align: center;
+        }
+
+        #confirmation-message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .image-and-buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .attractions-food-location-buttons {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+
+            .countdown-container {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
@@ -124,6 +151,7 @@
             <a href="atrações.html">Confira as Atrações</a>
             <a href="comidas.html">Confira as Comidas</a>
             <a href="localizacao.html">Confira a Localização</a>
+            <a href="confirmados.html">Ver Confirmados</a>
         </div>
     </div>
 
@@ -135,10 +163,11 @@
         <section id="rsvp">
             <h2>Confirme sua Presença</h2>
             <form id="rsvp-form">
-                <input type="text" placeholder="Seu Nome" required>
-                <input type="email" placeholder="Seu E-mail" required>
+                <input type="text" id="name" placeholder="Seu Nome" required>
+                <input type="email" id="email" placeholder="Seu E-mail" required>
                 <button type="submit">Confirmar</button>
             </form>
+            <div id="confirmation-message">Presença confirmada! Nos vemos na festa! 🎉</div>
         </section>
     </div>
 
@@ -158,18 +187,19 @@
             const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
             document.getElementById('timer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (timeRemaining < 0) {
-                document.getElementById('timer').innerHTML = "Evento já começou!";
-            }
         }
-
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
         document.getElementById('rsvp-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            alert('Sua presença foi confirmada! Nos vemos na festa!');
+            const name = document.getElementById('name').value;
+            if (name) {
+                let confirmedGuests = JSON.parse(localStorage.getItem('confirmedGuests')) || [];
+                confirmedGuests.push(name);
+                localStorage.setItem('confirmedGuests', JSON.stringify(confirmedGuests));
+            }
+            document.getElementById('confirmation-message').style.display = 'block';
             document.getElementById('rsvp-form').reset();
         });
     </script>
