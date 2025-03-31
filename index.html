@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Aniversário</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Configuração geral do corpo da página */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: #1a1a1a;
+        }
+
+        /* Espaço para a imagem */
+        #event-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 30px auto;
+            border-radius: 15px;
+        }
+
+        /* Contagem regressiva e Confirmação de presença */
+        .countdown-container {
+            display: flex;
+            justify-content: center; /* Alinha os itens ao centro */
+            align-items: center; /* Alinha os itens verticalmente */
+            gap: 30px;
+            margin: 30px;
+            flex-wrap: wrap;
+        }
+
+        #countdown, #rsvp {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+            max-width: 30%; /* Cada item ocupa 30% da largura */
+        }
+
+        #timer {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        
+        input, button {
+            padding: 15px;
+            margin: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+        }
+        
+        button {
+            background: #ff7e5f;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #e86c50;
+        }
+
+        /* Botão para acessar a página de atrações */
+        .attractions-button {
+            margin-top: 20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .attractions-button a {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #ff7e5f;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .attractions-button a:hover {
+            background: #e86c50;
+        }
+
+        footer {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <img id="event-image" src="-Aniversario-do-lucas-e-otavi-30-03-2025.png" alt="Aniversário Lucas e Otávio">
+    
+    <div class="countdown-container">
+        <!-- Contagem regressiva -->
+        <section id="countdown">
+            <h2>Faltam</h2>
+            <div id="timer">00d 00h 00m 00s</div>
+        </section>
+        
+        <!-- Botão para acessar a página de atrações -->
+        <section class="attractions-button">
+            <a href="atrações.html">Confira as Atrações</a>
+        </section>
+        
+        <!-- Formulário de confirmação de presença -->
+        <section id="rsvp">
+            <h2>Confirme sua Presença</h2>
+            <form id="rsvp-form">
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="email" placeholder="Seu E-mail" required>
+                <button type="submit">Confirmar</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Meu Aniversário. Todos os direitos reservados.</p>
+    </footer>
+    
+    <script>
+        // Atualizando a contagem regressiva para o evento
+        function updateCountdown() {
+            const eventDate = new Date('March 30, 2025 18:00:00').getTime(); // Data do evento
+            const now = new Date().getTime();
+            const timeRemaining = eventDate - now;
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            if (timeRemaining < 0) {
+                document.getElementById('timer').innerHTML = "Evento já começou!";
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Função para confirmar presença
+        document.getElementById('rsvp-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio do formulário
+            alert('Sua presença foi confirmada! Nos vemos na festa!');
+            document.getElementById('rsvp-form').reset(); // Limpa o formulário após o envio
+        });
+    </script>
+</body>
+</html>
