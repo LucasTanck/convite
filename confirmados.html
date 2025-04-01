@@ -4,65 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirmados</title>
-    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            color: white;
             text-align: center;
-            margin: 0;
-            padding: 0;
             background: #2597b5;
-        }
-        h1 {
-            margin-top: 20px;
+            color: white;
+            margin: 0;
+            padding: 20px;
         }
         #confirmed-list {
             background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            max-width: 400px;
+            padding: 15px;
+            border-radius: 10px;
+            max-width: 300px;
             margin: 20px auto;
+            backdrop-filter: blur(10px);
+        }
+        ul {
             list-style: none;
-            padding: 20px;
+            padding: 0;
         }
         li {
-            background: white;
-            color: black;
+            background: rgba(255, 255, 255, 0.3);
             padding: 10px;
             margin: 5px 0;
-            border-radius: 8px;
+            border-radius: 5px;
         }
         a {
-            display: inline-block;
+            display: block;
             margin-top: 20px;
-            padding: 10px 20px;
-            background: #ff7e5f;
-            color: white;
             text-decoration: none;
+            color: white;
             font-weight: bold;
-            border-radius: 10px;
-            transition: 0.3s;
+            background: #ff7e5f;
+            padding: 8px;
+            border-radius: 5px;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
         }
         a:hover {
             background: #e86c50;
+        }
+        #confirmation-message {
+            display: none;
+            margin-top: 15px;
+            padding: 8px;
+            background: #28a745;
+            color: white;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            max-width: 250px;
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
 <body>
     <h1>Lista de Confirmados</h1>
-    <ul id="confirmed-list"></ul>
+    <div id="confirmed-list">
+        <ul id="guest-list"></ul>
+    </div>
+    <div id="confirmation-message">Presença confirmada! Nos vemos na festa! 🎉</div>
     <a href="index.html">Voltar</a>
+    
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let confirmedGuests = JSON.parse(localStorage.getItem("confirmedGuests")) || [];
-            let listElement = document.getElementById("confirmed-list");
-            confirmedGuests.forEach(guest => {
-                let li = document.createElement("li");
-                li.textContent = guest;
-                listElement.appendChild(li);
-            });
+            let confirmedGuests = JSON.parse(localStorage.getItem('confirmedGuests')) || [];
+            let guestList = document.getElementById('guest-list');
+            let confirmationMessage = document.getElementById('confirmation-message');
+            
+            if (confirmedGuests.length === 0) {
+                guestList.innerHTML = "<p>Ninguém confirmou presença ainda.</p>";
+            } else {
+                confirmedGuests.forEach(guest => {
+                    let li = document.createElement('li');
+                    li.textContent = guest;
+                    guestList.appendChild(li);
+                });
+                confirmationMessage.style.display = 'block';
+            }
         });
     </script>
 </body>
