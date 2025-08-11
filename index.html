@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Meu Aniversário</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -142,10 +142,10 @@
     </style>
 </head>
 <body>
-    <img id="event-image" src="titulo.png" alt="Aniversário Lucas e Otávio">
+    <img id="event-image" src="titulo.png" alt="Aniversário Lucas e Otávio" />
 
     <div class="image-and-buttons-container">
-        <img id="second-image" src="texto.png" alt="Imagem do Evento">
+        <img id="second-image" src="texto.png" alt="Imagem do Evento" />
         <div class="attractions-food-location-buttons">
             <a href="atrações.html">Atrações</a>
             <a href="localizacao.html">Localização</a>
@@ -159,10 +159,8 @@
         </section>
         <section id="rsvp">
             <h2>Confirme sua Presença</h2>
-            <form id="rsvp-form">
-                <input type="text" id="name" placeholder="Seu Nome" required>
-                <button type="submit">Confirmar</button>
-            </form>
+            <input type="text" id="nome" placeholder="Digite seu nome" />
+            <button onclick="confirmarPresenca()">Confirmar presença</button>
             <div id="confirmation-message">Presença confirmada! Nos vemos na festa! 🎉</div>
             <a href="confirmados.html" style="display: inline-block; margin-top: 15px; padding: 12px; background: #dd3e16; color: white; text-decoration: none; font-weight: bold; border-radius: 10px; transition: 0.3s;">Ver Confirmados</a>
         </section>
@@ -173,21 +171,25 @@
     </footer>
 
     <script>
-        document.getElementById("rsvp-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            let name = document.getElementById("name").value.trim();
-            if (name) {
-                // Pega lista existente ou cria uma nova
-                let confirmedGuests = JSON.parse(localStorage.getItem('confirmedGuests')) || [];
-                confirmedGuests.push(name);
-                localStorage.setItem('confirmedGuests', JSON.stringify(confirmedGuests));
-
-                // Mostra mensagem de confirmação
-                document.getElementById("confirmation-message").style.display = "block";
-                document.getElementById("name").value = "";
+        function confirmarPresenca() {
+            let nome = document.getElementById("nome").value.trim();
+            if (nome === "") {
+                alert("Por favor, digite seu nome.");
+                return;
             }
-        });
+
+            // Usa a mesma chave 'confirmedGuests' para salvar e acessar na outra página
+            let confirmados = JSON.parse(localStorage.getItem("confirmedGuests")) || [];
+
+            // Evita duplicar nomes
+            if (!confirmados.includes(nome)) {
+                confirmados.push(nome);
+                localStorage.setItem("confirmedGuests", JSON.stringify(confirmados));
+            }
+
+            document.getElementById("confirmation-message").style.display = "block";
+            document.getElementById("nome").value = "";
+        }
 
         function updateCountdown() {
             const eventDate = new Date('October 04, 2025 16:00:00').getTime();
