@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Confirmados</title>
     <style>
         body {
@@ -37,12 +37,13 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
-            background: #ff7e5f;
-            padding: 8px;
-            border-radius: 5px;
+            background: #dd3e16;
+            padding: 10px;
+            border-radius: 8px;
             max-width: 200px;
             margin-left: auto;
             margin-right: auto;
+            transition: 0.3s;
         }
         a:hover {
             background: #e86c50;
@@ -69,7 +70,7 @@
     </div>
     <div id="confirmation-message">Presença confirmada! Nos vemos na festa! 🎉</div>
     <a href="index.html">Voltar</a>
-    
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             let confirmedGuests = JSON.parse(localStorage.getItem('confirmedGuests')) || [];
